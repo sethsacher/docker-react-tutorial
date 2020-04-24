@@ -1,4 +1,7 @@
-FROM node:alpine as builder
+# Removed the named builder and use default 0 instead
+# To resolve AWS issue ""docker pull" requires exactly 1 argument"
+
+FROM node:alpine
 WORKDIR '/app'
 
 COPY package.json .
@@ -16,12 +19,12 @@ RUN npm run build
 FROM nginx
 
 # Does nothing locally, but tells 
-# Elastic Beanstalk to look at this port
+# Elastic Beanstalk to expose this port (default HTTP port)
 EXPOSE 80
 
 # Copying directory from the builder step and moving it to this one
 # The usr... directory is what nginx uses by default to serve content
-COPY --from=builder app/build /usr/share/nginx/html
+COPY --from=0 app/build /usr/share/nginx/html
 
 # Default command of the base image is to start nginx
 # so we don't need a separate command at the bottom
