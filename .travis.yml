@@ -1,0 +1,14 @@
+sudo: required
+language: generic
+
+# Install docker when running the CI build
+services:
+  - docker
+
+# Build our image
+before_install:
+  - docker build -t sethsacher/docker-react -f Dockerfile.dev .
+
+# Run our image, and run the tests in that resulting container
+script:
+  - docker run -e CI=true sethsacher/docker-react npm run test
