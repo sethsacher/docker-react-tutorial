@@ -1,0 +1,24 @@
+version: "3"
+services:
+  # Service to run main react app
+  web:
+    stdin_open: true
+    build:
+      # context indicates the working directory
+      # where to look for the dockerfile
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+  # Service to run tests
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
