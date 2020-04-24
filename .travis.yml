@@ -12,3 +12,4 @@ before_install:
 # Run our image, and run the tests in that resulting container
 script:
   - docker run -e CI=true sethsacher/docker-react npm run test
+# Dummy update to force a change
