@@ -14,6 +14,11 @@ RUN npm run build
 
 
 FROM nginx
+
+# Does nothing locally, but tells 
+# Elastic Beanstalk to look at this port
+EXPOSE 80
+
 # Copying directory from the builder step and moving it to this one
 # The usr... directory is what nginx uses by default to serve content
 COPY --from=builder app/build /usr/share/nginx/html
