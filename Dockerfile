@@ -1,3 +1,6 @@
+# We don't specify anywhere that we're using this Dockerfile
+# with Travis CI / AWS EB; it does that automatically 
+
 # Removed the named builder and use default 0 instead
 # To resolve AWS issue ""docker pull" requires exactly 1 argument"
 
