@@ -12,4 +12,19 @@ before_install:
 # Run our image, and run the tests in that resulting container
 script:
   - docker run -e CI=true sethsacher/docker-react npm run test
-# Dummy update to force a change
+
+# Using AWS Elastic Beanstalk
+# EB automatically provisions OTHER AWS infrastructure
+# So when we specify bucket, that's because it uses an S3 bucket to store files
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-react-tutorial"
+  env: "DockerReactTutorial-env"
+  bucket_name: "elasticbeanstalk-us-east-2-931999392149"
+  bucket_path: "docker-react-tutorial"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
